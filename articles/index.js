@@ -42,4 +42,5 @@ const ARTICLE_REGISTRY = [
   'file-sharing-internet',
   'complete-api-guide',
   'what-is-termux',
+  'ani-cli-anime',
 ];
