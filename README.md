@@ -4,7 +4,7 @@
 
 A fast, minimal, open-source blog dedicated to Termux guides — from basic setup to advanced development environments. Inspired by the editorial design of Medium and Android Authority.
 
-**Live site → [iamshivanshcoder.github.io/termuxlab](https://iamshivanshcoder.github.io/termuxlab)**
+**Live site → [iamshivanshcoder.github.io/termux-lab](https://iamshivanshcoder.github.io/termux-lab)**
 
 ---
 
