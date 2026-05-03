@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termux Tools — TermuxLab</title>
+  <meta name="description" content="Curated list of the best Termux packages for networking, development, utilities, and proot setups.">
+  <meta property="og:title" content="Termux Tools — TermuxLab">
+  <meta property="og:description" content="Curated list of the best Termux packages for networking, development, utilities, and proot setups.">
+  <meta property="og:url" content="https://iamshivanshcoder.github.io/termuxlab/tools.html">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">$ termuxlab_<span class="cursor"></span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="guides.html">Guides</a></li>
+        <li><a href="tools.html" class="active">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <a href="https://github.com/IamShivanshCoder" target="_blank" rel="noopener" class="btn-subscribe" style="text-decoration:none;display:inline-flex;align-items:center">Subscribe</a>
+      <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="tools.html" class="active">Tools</a>
+    <a href="about.html">About</a>
+    <a href="https://github.com/IamShivanshCoder" target="_blank" rel="noopener" class="mobile-subscribe">Subscribe →</a>
+  </div>
+
+  <!-- Main content -->
+  <main class="container">
+    <div class="page-header">
+      <h1 class="page-title">Termux Tools</h1>
+      <p class="page-subtitle">A curated list of the best packages for your setup.</p>
+    </div>
+
+    <div id="tools-grid" class="article-grid" style="padding-bottom:64px;"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">$ termuxlab_<span class="cursor"></span></div>
+        <p class="tagline">Root your knowledge. No sudo required.</p>
+      </div>
+      <div>
+        <h3 class="footer-heading">Topics</h3>
+        <ul class="footer-links">
+          <li><a href="guides.html?category=Setup">Setup</a></li>
+          <li><a href="guides.html?category=Dev">Development</a></li>
+          <li><a href="guides.html?category=Networking">Networking</a></li>
+          <li><a href="tools.html">Tools</a></li>
+          <li><a href="guides.html?category=Security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Site</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="https://codeberg.org/ShivanshBansal" target="_blank" rel="noopener">Contribute</a></li>
+          <li><a href="about.html#privacy">Privacy</a></li>
+          <li><a href="mailto:shivanshbansal0308@gmail.com">RSS Feed</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; TermuxLab &middot; Built with zero cloud dependency
+    </div>
+  </footer>
+
+  <script>
+    var TOOLS = [
+      { name: "nmap",        desc: "Network discovery and security auditing scanner.",           category: "Networking",  cmd: "pkg install nmap" },
+      { name: "curl",        desc: "Transfer data with URLs — HTTP, FTP, and more.",             category: "Networking",  cmd: "pkg install curl" },
+      { name: "wget",        desc: "Non-interactive file downloader with resume support.",       category: "Networking",  cmd: "pkg install wget" },
+      { name: "netcat",      desc: "Swiss-army knife for TCP/UDP read/write operations.",        category: "Networking",  cmd: "pkg install netcat-openbsd" },
+      { name: "openssh",     desc: "Full OpenSSH client and server for remote access.",          category: "Networking",  cmd: "pkg install openssh" },
+      { name: "termux-api",  desc: "Bridge to Android APIs (camera, clipboard, sensors).",       category: "Networking",  cmd: "pkg install termux-api" },
+      { name: "clang",       desc: "C/C++/Objective-C compiler based on LLVM.",                  category: "Dev",         cmd: "pkg install clang" },
+      { name: "python",      desc: "Python 3 interpreter and standard library.",                 category: "Dev",         cmd: "pkg install python" },
+      { name: "nodejs",      desc: "JavaScript runtime built on Chrome's V8 engine.",            category: "Dev",         cmd: "pkg install nodejs" },
+      { name: "git",         desc: "Distributed version control system.",                        category: "Dev",         cmd: "pkg install git" },
+      { name: "make",        desc: "GNU Make build automation tool.",                            category: "Dev",         cmd: "pkg install make" },
+      { name: "gdb",         desc: "GNU Debugger for C, C++ and other languages.",              category: "Dev",         cmd: "pkg install gdb" },
+      { name: "tmux",        desc: "Terminal multiplexer for persistent sessions.",              category: "Utilities",   cmd: "pkg install tmux" },
+      { name: "neovim",      desc: "Hyper-extensible Vim-based text editor.",                    category: "Utilities",   cmd: "pkg install neovim" },
+      { name: "htop",        desc: "Interactive process viewer and system monitor.",             category: "Utilities",   cmd: "pkg install htop" },
+      { name: "tree",        desc: "Directory listing displayed as a tree structure.",           category: "Utilities",   cmd: "pkg install tree" },
+      { name: "fzf",         desc: "General-purpose command-line fuzzy finder.",                 category: "Utilities",   cmd: "pkg install fzf" },
+      { name: "ripgrep",     desc: "Regex search tool faster than grep and ag.",                 category: "Utilities",   cmd: "pkg install ripgrep" },
+      { name: "proot-distro",desc: "Install and run Linux distributions without root.",          category: "Proot",       cmd: "pkg install proot-distro" },
+      { name: "xorg-server", desc: "X11 display server for GUI apps in Termux.",                 category: "Proot",       cmd: "pkg install xorg-server x11-repo" },
+      { name: "i3wm",        desc: "Tiling window manager for graphical sessions.",              category: "Proot",       cmd: "pkg install i3" }
+    ];
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var grid = document.getElementById("tools-grid");
+      var html = "";
+      TOOLS.forEach(function (tool) {
+        html +=
+          '<div class="tool-card">' +
+            '<span class="card-tag">' + tool.category + '</span>' +
+            '<h3 class="tool-name">' + escapeHtml(tool.name) + '</h3>' +
+            '<p class="tool-desc">' + escapeHtml(tool.desc) + '</p>' +
+            '<div class="tool-code" data-cmd="' + escapeHtml(tool.cmd) + '" onclick="copyCmd(this)">' +
+              '<code>' + escapeHtml(tool.cmd) + '</code>' +
+              '<span class="copy-label">Copy</span>' +
+            '</div>' +
+          '</div>';
+      });
+      grid.innerHTML = html;
+    });
+
+    function copyCmd(el) {
+      var cmd = el.getAttribute("data-cmd");
+      var label = el.querySelector(".copy-label");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cmd).then(function () { showCopied(el, label); });
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = cmd;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showCopied(el, label);
+      }
+    }
+
+    function showCopied(el, label) {
+      el.classList.add("copied");
+      label.textContent = "Copied!";
+      setTimeout(function () { el.classList.remove("copied"); label.textContent = "Copy"; }, 1500);
+    }
+
+    function escapeHtml(text) {
+      var div = document.createElement("div");
+      div.appendChild(document.createTextNode(text));
+      return div.innerHTML;
+    }
+
+    function toggleMenu() {
+      var menu = document.getElementById("mobile-menu");
+      var hamburger = document.querySelector(".hamburger");
+      menu.classList.toggle("open");
+      hamburger.classList.toggle("open");
+    }
+
+    document.querySelectorAll(".mobile-menu a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.remove("open");
+        document.querySelector(".hamburger").classList.remove("open");
+      });
+    });
+
+    // Logo typo animation: termuxlab → termixlab → termuxlab
+    // Only targets navbar logo to avoid interfering with footer or nav links
+    (function () {
+      var logo = document.querySelector("nav .logo");
+      if (!logo) return;
+
+      var textNode = null;
+      logo.childNodes.forEach(function (node) {
+        if (node.nodeType === Node.TEXT_NODE) textNode = node;
+      });
+      if (!textNode) return;
+
+      var cycle = [
+        function (cb) { typeText(textNode, "$ term", 80, cb); },
+        function (cb) { typeText(textNode, "$ termixlab_", 80, cb); },
+        function (cb) { setTimeout(cb, 600); },
+        function (cb) { typeText(textNode, "$ term", 80, cb); },
+        function (cb) { typeText(textNode, "$ termuxlab_", 80, cb); },
+        function (cb) { setTimeout(cb, 6000); }
+      ];
+
+      var phase = 0;
+      function runNext() {
+        cycle[phase](function () {
+          phase = (phase + 1) % cycle.length;
+          runNext();
+        });
+      }
+      setTimeout(runNext, 5000);
+
+      function typeText(node, target, speed, cb) {
+        var current = node.textContent;
+        if (current === target) { cb(); return; }
+        var tLen = target.length;
+        var cLen = current.length;
+        if (cLen > tLen || current.slice(0, Math.min(cLen, tLen)) !== target.slice(0, Math.min(cLen, tLen))) {
+          var i = cLen;
+          function back() {
+            if (i <= 0 || current.slice(0, i) === target.slice(0, Math.min(i, tLen))) { typeFwd(node, target, i, speed, cb); return; }
+            i--; node.textContent = current.slice(0, i); setTimeout(back, speed);
+          }
+          back();
+        } else { typeFwd(node, target, cLen, speed, cb); }
+      }
+
+      function typeFwd(node, target, start, speed, cb) {
+        var i = start;
+        function type() { if (i >= target.length) { cb(); return; } i++; node.textContent = target.slice(0, i); setTimeout(type, speed); }
+        type();
+      }
+    })();
+  </script>
+</body>
+</html>
