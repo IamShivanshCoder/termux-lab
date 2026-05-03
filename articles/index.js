@@ -43,4 +43,5 @@ const ARTICLE_REGISTRY = [
   'complete-api-guide',
   'what-is-termux',
   'ani-cli-anime',
+  'language-interop',
 ];
