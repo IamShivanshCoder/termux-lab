@@ -80,14 +80,8 @@
     </div>
   </footer>
 
-  <!-- IMPORTANT: Bump ?v= number each time you edit articles.js e.g. ?v=2 ?v=3 -->
-  <script src="articles.js?v=3"></script>
   <script>
-    // ============================================================
-    // Article Page Rendering Logic
-    // ============================================================
-
-    document.addEventListener("DOMContentLoaded", function () {
+    window.onArticlesReady = function () {
       var params = new URLSearchParams(window.location.search);
       var slug = params.get("id");
       var container = document.getElementById("article-content");
@@ -110,7 +104,6 @@
         return;
       }
 
-      // Update page title and OG tags dynamically
       document.title = article.title + " — TermuxLab";
       updateMetaTag("description", article.subtitle);
       updateMetaTag("og:title", article.title + " — TermuxLab");
@@ -167,7 +160,7 @@
       html += '</div>';
 
       container.innerHTML = html;
-    });
+    };
 
     function render404(container) {
       container.innerHTML =
@@ -199,7 +192,6 @@
       if (meta) meta.setAttribute("content", content);
     }
 
-    // Reading progress bar
     var progressBar = document.getElementById("progress-bar");
     if (progressBar) {
       window.addEventListener("scroll", function () {
@@ -210,7 +202,6 @@
       });
     }
 
-    // Mobile menu toggle
     function toggleMenu() {
       var menu = document.getElementById("mobile-menu");
       var hamburger = document.querySelector(".hamburger");
@@ -226,7 +217,6 @@
     });
 
     // Logo typo animation: termuxlab → termixlab → termuxlab
-    // Only targets navbar logo to avoid interfering with footer or nav links
     (function () {
       var logo = document.querySelector("nav .logo");
       if (!logo) return;
@@ -277,5 +267,7 @@
       }
     })();
   </script>
+  <script src="articles/index.js"></script>
+  <script src="js/loader.js"></script>
 </body>
 </html>

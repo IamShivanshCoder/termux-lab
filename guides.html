@@ -49,9 +49,11 @@
       <p class="page-subtitle">Everything you need to master Termux.</p>
     </div>
 
+    <input type="text" id="search-input" class="search-input" placeholder="Search guides..." autocomplete="off">
     <div id="filter-bar" class="filter-bar"></div>
     <div id="guides-count" class="guides-count"></div>
     <div id="article-grid" class="article-grid"></div>
+    <div id="search-empty" class="search-empty" style="display:none;"></div>
   </main>
 
   <!-- Footer -->
@@ -86,10 +88,11 @@
     </div>
   </footer>
 
-  <!-- IMPORTANT: Bump ?v= number each time you edit articles.js e.g. ?v=2 ?v=3 -->
-  <script src="articles.js?v=3"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    var activeCategory = "All";
+    var activeSearch = "";
+
+    window.onArticlesReady = function () {
       var categories = ["All"];
       var seen = {};
       for (var i = 0; i < ARTICLES.length; i++) {
@@ -99,7 +102,6 @@
 
       var params = new URLSearchParams(window.location.search);
       var urlCat = params.get("category");
-      var activeCategory = "All";
 
       if (urlCat) {
         for (var i = 0; i < categories.length; i++) {
@@ -118,22 +120,49 @@
       }
       filterBar.innerHTML = filterHtml;
 
-      renderGrid(activeCategory);
-
       filterBar.addEventListener("click", function (e) {
         var pill = e.target.closest(".filter-pill");
         if (!pill) return;
         var pills = filterBar.querySelectorAll(".filter-pill");
         for (var i = 0; i < pills.length; i++) pills[i].classList.remove("active");
         pill.classList.add("active");
-        renderGrid(pill.getAttribute("data-category"));
+        activeCategory = pill.getAttribute("data-category");
+        renderGrid();
       });
 
-      function renderGrid(category) {
-        var filtered = (category === "All") ? ARTICLES : ARTICLES.filter(function (a) { return a.category === category; });
-        document.getElementById("guides-count").textContent = filtered.length + " guide" + (filtered.length !== 1 ? "s" : "");
+      var searchInput = document.getElementById("search-input");
+      searchInput.addEventListener("input", function (e) {
+        activeSearch = e.target.value;
+        renderGrid();
+      });
 
-        var grid = document.getElementById("article-grid");
+      renderGrid();
+    };
+
+    function renderGrid() {
+      var filtered = ARTICLES.slice();
+
+      if (activeSearch && activeSearch.trim().length >= 2) {
+        filtered = searchArticles(activeSearch, filtered);
+      }
+
+      if (activeCategory !== "All") {
+        var cat = activeCategory;
+        filtered = filtered.filter(function (a) { return a.category === cat; });
+      }
+
+      var countEl = document.getElementById("guides-count");
+      countEl.textContent = filtered.length + " guide" + (filtered.length !== 1 ? "s" : "");
+
+      var grid = document.getElementById("article-grid");
+      var emptyEl = document.getElementById("search-empty");
+
+      if (filtered.length === 0 && activeSearch.trim().length >= 2) {
+        grid.innerHTML = "";
+        emptyEl.style.display = "block";
+        emptyEl.textContent = "No guides found for '" + escapeHtml(activeSearch) + "'";
+      } else {
+        emptyEl.style.display = "none";
         var html = "";
         for (var i = 0; i < filtered.length; i++) {
           var a = filtered[i];
@@ -156,7 +185,7 @@
         }
         grid.innerHTML = html;
       }
-    });
+    }
 
     function escapeHtml(text) {
       var div = document.createElement("div");
@@ -164,7 +193,6 @@
       return div.innerHTML;
     }
 
-    // Mobile menu toggle
     function toggleMenu() {
       var menu = document.getElementById("mobile-menu");
       var hamburger = document.querySelector(".hamburger");
@@ -180,7 +208,6 @@
     });
 
     // Logo typo animation: termuxlab → termixlab → termuxlab
-    // Only targets navbar logo to avoid interfering with footer or nav links
     (function () {
       var logo = document.querySelector("nav .logo");
       if (!logo) return;
@@ -231,5 +258,8 @@
       }
     })();
   </script>
+  <script src="articles/index.js"></script>
+  <script src="js/loader.js"></script>
+  <script src="js/search.js"></script>
 </body>
 </html>

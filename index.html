@@ -83,18 +83,11 @@
     </div>
   </footer>
 
-  <!-- IMPORTANT: Bump ?v= number each time you edit articles.js e.g. ?v=2 ?v=3 -->
-  <script src="articles.js?v=3"></script>
   <script>
-    // ============================================================
-    // Homepage Rendering Logic
-    // ============================================================
-
-    document.addEventListener("DOMContentLoaded", function () {
+    window.onArticlesReady = function () {
       var featured = ARTICLES.find(function (a) { return a.featured; });
       var regulars = ARTICLES.filter(function (a) { return !a.featured; });
 
-      // Render featured hero
       var heroSection = document.getElementById("hero-section");
       if (featured) {
         heroSection.innerHTML =
@@ -117,7 +110,6 @@
         heroSection.style.display = "none";
       }
 
-      // Render article grid
       var grid = document.getElementById("article-grid");
       var gridHtml = "";
       regulars.forEach(function (article) {
@@ -139,16 +131,14 @@
           '</a>';
       });
       grid.innerHTML = gridHtml;
-    });
+    };
 
-    // Escape HTML
     function escapeHtml(text) {
       var div = document.createElement("div");
       div.appendChild(document.createTextNode(text));
       return div.innerHTML;
     }
 
-    // Mobile menu toggle
     function toggleMenu() {
       var menu = document.getElementById("mobile-menu");
       var hamburger = document.querySelector(".hamburger");
@@ -156,7 +146,6 @@
       hamburger.classList.toggle("open");
     }
 
-    // Close mobile menu on link click
     document.querySelectorAll(".mobile-menu a").forEach(function (link) {
       link.addEventListener("click", function () {
         document.getElementById("mobile-menu").classList.remove("open");
@@ -165,7 +154,6 @@
     });
 
     // Logo typo animation: termuxlab → termixlab → termuxlab
-    // Only targets navbar logo to avoid interfering with footer or nav links
     (function () {
       var logo = document.querySelector("nav .logo");
       if (!logo) return;
@@ -216,5 +204,7 @@
       }
     })();
   </script>
+  <script src="articles/index.js"></script>
+  <script src="js/loader.js"></script>
 </body>
 </html>
