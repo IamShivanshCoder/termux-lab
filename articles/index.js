@@ -41,4 +41,5 @@ const ARTICLE_REGISTRY = [
   'file-sharing-python',
   'file-sharing-internet',
   'complete-api-guide',
+  'what-is-termux',
 ];
