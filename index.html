@@ -83,141 +83,138 @@
     </div>
   </footer>
 
+  <!-- IMPORTANT: Bump ?v= number each time you edit articles.js e.g. ?v=2 ?v=3 -->
+  <script src="articles.js?v=1"></script>
   <script>
-    const s = document.createElement('script');
-    s.src = 'articles.js?v=' + Date.now();
-    s.onload = function() {
-      // ============================================================
-      // Homepage Rendering Logic
-      // ============================================================
+    // ============================================================
+    // Homepage Rendering Logic
+    // ============================================================
 
-      document.addEventListener("DOMContentLoaded", function () {
-        var featured = ARTICLES.find(function (a) { return a.featured; });
-        var regulars = ARTICLES.filter(function (a) { return !a.featured; });
+    document.addEventListener("DOMContentLoaded", function () {
+      var featured = ARTICLES.find(function (a) { return a.featured; });
+      var regulars = ARTICLES.filter(function (a) { return !a.featured; });
 
-        // Render featured hero
-        var heroSection = document.getElementById("hero-section");
-        if (featured) {
-          heroSection.innerHTML =
-            '<a href="article.html?id=' + encodeURIComponent(featured.id) + '" class="hero-card">' +
-              '<img class="hero-cover" src="' + featured.cover + '" alt="' + escapeHtml(featured.title) + '" loading="eager">' +
-              '<div class="hero-content">' +
-                '<span class="hero-tag">' + escapeHtml(featured.category) + '</span>' +
-                '<h1 class="hero-title">' + escapeHtml(featured.title) + '</h1>' +
-                '<p class="hero-subtitle">' + escapeHtml(featured.subtitle) + '</p>' +
-                '<div class="hero-meta">' +
-                  '<span>' + escapeHtml(featured.author) + '</span>' +
-                  '<span class="dot"></span>' +
-                  '<span>' + escapeHtml(featured.date) + '</span>' +
-                  '<span class="dot"></span>' +
-                  '<span>' + escapeHtml(featured.readTime) + '</span>' +
-                '</div>' +
+      // Render featured hero
+      var heroSection = document.getElementById("hero-section");
+      if (featured) {
+        heroSection.innerHTML =
+          '<a href="article.html?id=' + encodeURIComponent(featured.id) + '" class="hero-card">' +
+            '<img class="hero-cover" src="' + featured.cover + '" alt="' + escapeHtml(featured.title) + '" loading="eager">' +
+            '<div class="hero-content">' +
+              '<span class="hero-tag">' + escapeHtml(featured.category) + '</span>' +
+              '<h1 class="hero-title">' + escapeHtml(featured.title) + '</h1>' +
+              '<p class="hero-subtitle">' + escapeHtml(featured.subtitle) + '</p>' +
+              '<div class="hero-meta">' +
+                '<span>' + escapeHtml(featured.author) + '</span>' +
+                '<span class="dot"></span>' +
+                '<span>' + escapeHtml(featured.date) + '</span>' +
+                '<span class="dot"></span>' +
+                '<span>' + escapeHtml(featured.readTime) + '</span>' +
               '</div>' +
-            '</a>';
-        } else {
-          heroSection.style.display = "none";
-        }
-
-        // Render article grid
-        var grid = document.getElementById("article-grid");
-        var gridHtml = "";
-        regulars.forEach(function (article) {
-          gridHtml +=
-            '<a href="article.html?id=' + encodeURIComponent(article.id) + '" class="article-card">' +
-              '<img class="card-cover" src="' + article.cover + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
-              '<div class="card-body">' +
-                '<span class="card-tag">' + escapeHtml(article.category) + '</span>' +
-                '<h3 class="card-title">' + escapeHtml(article.title) + '</h3>' +
-                '<p class="card-subtitle">' + escapeHtml(article.subtitle) + '</p>' +
-                '<div class="card-meta">' +
-                  '<span>' + escapeHtml(article.author) + '</span>' +
-                  '<span class="dot"></span>' +
-                  '<span>' + escapeHtml(article.date) + '</span>' +
-                  '<span class="dot"></span>' +
-                  '<span>' + escapeHtml(article.readTime) + '</span>' +
-                '</div>' +
-              '</div>' +
-            '</a>';
-        });
-        grid.innerHTML = gridHtml;
-      });
-
-      // Escape HTML
-      function escapeHtml(text) {
-        var div = document.createElement("div");
-        div.appendChild(document.createTextNode(text));
-        return div.innerHTML;
+            '</div>' +
+          '</a>';
+      } else {
+        heroSection.style.display = "none";
       }
 
-      // Mobile menu toggle
-      function toggleMenu() {
-        var menu = document.getElementById("mobile-menu");
-        var hamburger = document.querySelector(".hamburger");
-        menu.classList.toggle("open");
-        hamburger.classList.toggle("open");
+      // Render article grid
+      var grid = document.getElementById("article-grid");
+      var gridHtml = "";
+      regulars.forEach(function (article) {
+        gridHtml +=
+          '<a href="article.html?id=' + encodeURIComponent(article.id) + '" class="article-card">' +
+            '<img class="card-cover" src="' + article.cover + '" alt="' + escapeHtml(article.title) + '" loading="lazy">' +
+            '<div class="card-body">' +
+              '<span class="card-tag">' + escapeHtml(article.category) + '</span>' +
+              '<h3 class="card-title">' + escapeHtml(article.title) + '</h3>' +
+              '<p class="card-subtitle">' + escapeHtml(article.subtitle) + '</p>' +
+              '<div class="card-meta">' +
+                '<span>' + escapeHtml(article.author) + '</span>' +
+                '<span class="dot"></span>' +
+                '<span>' + escapeHtml(article.date) + '</span>' +
+                '<span class="dot"></span>' +
+                '<span>' + escapeHtml(article.readTime) + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</a>';
+      });
+      grid.innerHTML = gridHtml;
+    });
+
+    // Escape HTML
+    function escapeHtml(text) {
+      var div = document.createElement("div");
+      div.appendChild(document.createTextNode(text));
+      return div.innerHTML;
+    }
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      var menu = document.getElementById("mobile-menu");
+      var hamburger = document.querySelector(".hamburger");
+      menu.classList.toggle("open");
+      hamburger.classList.toggle("open");
+    }
+
+    // Close mobile menu on link click
+    document.querySelectorAll(".mobile-menu a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        document.getElementById("mobile-menu").classList.remove("open");
+        document.querySelector(".hamburger").classList.remove("open");
+      });
+    });
+
+    // Logo typo animation: termuxlab → termixlab → termuxlab
+    // Only targets navbar logo to avoid interfering with footer or nav links
+    (function () {
+      var logo = document.querySelector("nav .logo");
+      if (!logo) return;
+
+      var textNode = null;
+      logo.childNodes.forEach(function (node) {
+        if (node.nodeType === Node.TEXT_NODE) textNode = node;
+      });
+      if (!textNode) return;
+
+      var cycle = [
+        function (cb) { typeText(textNode, "$ term", 80, cb); },
+        function (cb) { typeText(textNode, "$ termixlab_", 80, cb); },
+        function (cb) { setTimeout(cb, 600); },
+        function (cb) { typeText(textNode, "$ term", 80, cb); },
+        function (cb) { typeText(textNode, "$ termuxlab_", 80, cb); },
+        function (cb) { setTimeout(cb, 6000); }
+      ];
+
+      var phase = 0;
+      function runNext() {
+        cycle[phase](function () {
+          phase = (phase + 1) % cycle.length;
+          runNext();
+        });
+      }
+      setTimeout(runNext, 5000);
+
+      function typeText(node, target, speed, cb) {
+        var current = node.textContent;
+        if (current === target) { cb(); return; }
+        var tLen = target.length;
+        var cLen = current.length;
+        if (cLen > tLen || current.slice(0, Math.min(cLen, tLen)) !== target.slice(0, Math.min(cLen, tLen))) {
+          var i = cLen;
+          function back() {
+            if (i <= 0 || current.slice(0, i) === target.slice(0, Math.min(i, tLen))) { typeFwd(node, target, i, speed, cb); return; }
+            i--; node.textContent = current.slice(0, i); setTimeout(back, speed);
+          }
+          back();
+        } else { typeFwd(node, target, cLen, speed, cb); }
       }
 
-      // Close mobile menu on link click
-      document.querySelectorAll(".mobile-menu a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          document.getElementById("mobile-menu").classList.remove("open");
-          document.querySelector(".hamburger").classList.remove("open");
-        });
-      });
-
-      // Logo typo animation: termuxlab → termixlab → termuxlab
-      // Only targets navbar logo to avoid interfering with footer or nav links
-      (function () {
-        var logo = document.querySelector("nav .logo");
-        if (!logo) return;
-
-        var textNode = null;
-        logo.childNodes.forEach(function (node) {
-          if (node.nodeType === Node.TEXT_NODE) textNode = node;
-        });
-        if (!textNode) return;
-
-        var cycle = [
-          function (cb) { typeText(textNode, "$ term", 80, cb); },
-          function (cb) { typeText(textNode, "$ termixlab_", 80, cb); },
-          function (cb) { setTimeout(cb, 600); },
-          function (cb) { typeText(textNode, "$ term", 80, cb); },
-          function (cb) { typeText(textNode, "$ termuxlab_", 80, cb); },
-          function (cb) { setTimeout(cb, 6000); }
-        ];
-
-        var phase = 0;
-        function runNext() {
-          cycle[phase](function () {
-            phase = (phase + 1) % cycle.length;
-            runNext();
-          });
-        }
-        setTimeout(runNext, 5000);
-
-        function typeText(node, target, speed, cb) {
-          var current = node.textContent;
-          if (current === target) { cb(); return; }
-          var tLen = target.length;
-          var cLen = current.length;
-          if (cLen > tLen || current.slice(0, Math.min(cLen, tLen)) !== target.slice(0, Math.min(cLen, tLen))) {
-            var i = cLen;
-            function back() {
-              if (i <= 0 || current.slice(0, i) === target.slice(0, Math.min(i, tLen))) { typeFwd(node, target, i, speed, cb); return; }
-              i--; node.textContent = current.slice(0, i); setTimeout(back, speed);
-            }
-            back();
-          } else { typeFwd(node, target, cLen, speed, cb); }
-        }
-
-        function typeFwd(node, target, start, speed, cb) {
-          var i = start;
-          function type() { if (i >= target.length) { cb(); return; } i++; node.textContent = target.slice(0, i); setTimeout(type, speed); }
-          type();
-        }
-      })();
-    };
-    document.head.appendChild(s);
+      function typeFwd(node, target, start, speed, cb) {
+        var i = start;
+        function type() { if (i >= target.length) { cb(); return; } i++; node.textContent = target.slice(0, i); setTimeout(type, speed); }
+        type();
+      }
+    })();
   </script>
 </body>
 </html>
