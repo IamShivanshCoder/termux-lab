@@ -45,4 +45,5 @@ const ARTICLE_REGISTRY = [
   'ani-cli-anime',
   'language-interop',
   'how-ai-works',
+  'bootloader-custom-rom',
 ];
